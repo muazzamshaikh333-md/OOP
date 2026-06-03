@@ -1,0 +1,46 @@
+#include <iostream>
+using namespace std;
+
+int bitwiseOperation(int a, int b, char op)
+{
+    switch(op)
+    {
+        case '&': return a & b;
+        case '|': return a | b;
+        case '^': return a ^ b;
+        default: return 0;
+    }
+}
+
+bool logicalOperation(bool a, bool b, int choice)
+{
+    switch(choice)
+    {
+        case 1: return a && b;
+        case 2: return a || b;
+        default: return false;
+    }
+}
+
+int main()
+{
+    int x, y;
+
+    cout << "Enter two integers: ";
+    cin >> x >> y;
+
+    cout << "\nBitwise Operations\n";
+    cout << "AND (&) = " << bitwiseOperation(x, y, '&') << endl;
+    cout << "OR (|) = " << bitwiseOperation(x, y, '|') << endl;
+    cout << "XOR (^) = " << bitwiseOperation(x, y, '^') << endl;
+    cout << "Left Shift (x<<1) = " << (x << 1) << endl;
+    cout << "Right Shift (x>>1) = " << (x >> 1) << endl;
+
+    cout << "\nLogical Operations\n";
+    cout << "Logical AND (&&) = " << logicalOperation(x, y, 1) << endl;
+    cout << "Logical OR (||) = " << logicalOperation(x, y, 2) << endl;
+    cout << "Logical NOT (!x) = " << !x << endl;
+    cout << "Logical NOT (!y) = " << !y << endl;
+
+    return 0;
+}
