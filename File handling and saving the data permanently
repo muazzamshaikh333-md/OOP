@@ -1,0 +1,64 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+void writeData() {
+    ofstream file("student.txt");
+
+    string name;
+    int age;
+
+    cout << "Enter Name: ";
+    cin >> name;
+
+    cout << "Enter Age: ";
+    cin >> age;
+
+    file << name << endl;
+    file << age << endl;
+
+    file.close();
+}
+
+void readData() {
+    ifstream file("student.txt");
+
+    string name;
+    int age;
+
+    getline(file, name);
+    file >> age;
+
+    cout << "Name: " << name << endl;
+    cout << "Age: " << age << endl;
+
+    file.close();
+}
+
+int main() {
+    int choice;
+
+    do {
+        cout << "\n1. Write Data\n2. Read Data\n3. Exit\n";
+        cout << "Enter Choice: ";
+        cin >> choice;
+
+        switch(choice) {
+            case 1:
+                writeData();
+                break;
+
+            case 2:
+                readData();
+                break;
+
+            case 3:
+                break;
+
+            default:
+                cout << "Invalid Choice\n";
+        }
+    } while(choice != 3);
+
+    return 0;
+}
