@@ -1,0 +1,105 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+void addStudent() {
+    ofstream file("students.txt", ios::app);
+
+    int roll;
+    string name;
+    float marks;
+
+    cout << "Enter Roll No: ";
+    cin >> roll;
+
+    cout << "Enter Name: ";
+    cin >> name;
+
+    cout << "Enter Marks: ";
+    cin >> marks;
+
+    file << roll << " " << name << " " << marks << endl;
+    file.close();
+
+    cout << "Student Added Successfully\n";
+}
+
+void displayStudents() {
+    ifstream file("students.txt");
+
+    int roll;
+    string name;
+    float marks;
+
+    cout << "\nRoll\tName\tMarks\n";
+
+    while (file >> roll >> name >> marks) {
+        cout << roll << "\t" << name << "\t" << marks << endl;
+    }
+
+    file.close();
+}
+
+void searchStudent() {
+    ifstream file("students.txt");
+
+    int roll, r;
+    string name;
+    float marks;
+    bool found = false;
+
+    cout << "Enter Roll No to Search: ";
+    cin >> r;
+
+    while (file >> roll >> name >> marks) {
+        if (roll == r) {
+            cout << "\nStudent Found\n";
+            cout << "Roll No: " << roll << endl;
+            cout << "Name: " << name << endl;
+            cout << "Marks: " << marks << endl;
+            found = true;
+            break;
+        }
+    }
+
+    if (!found)
+        cout << "Student Not Found\n";
+
+    file.close();
+}
+
+int main() {
+    int choice;
+
+    do {
+        cout << "\n1. Add Student";
+        cout << "\n2. Display Students";
+        cout << "\n3. Search Student";
+        cout << "\n4. Exit";
+        cout << "\nEnter Choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                addStudent();
+                break;
+
+            case 2:
+                displayStudents();
+                break;
+
+            case 3:
+                searchStudent();
+                break;
+
+            case 4:
+                cout << "Exiting...";
+                break;
+
+            default:
+                cout << "Invalid Choice";
+        }
+    } while (choice != 4);
+
+    return 0;
+}
