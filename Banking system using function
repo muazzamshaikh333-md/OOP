@@ -1,0 +1,91 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+double balance = 0;
+
+void loadBalance() {
+    ifstream file("bank.txt");
+    if (file)
+        file >> balance;
+    file.close();
+}
+
+void saveBalance() {
+    ofstream file("bank.txt");
+    file << balance;
+    file.close();
+}
+
+void deposit() {
+    double amount;
+    cout << "Enter Amount to Deposit: ";
+    cin >> amount;
+
+    balance += amount;
+    saveBalance();
+
+    cout << "Deposit Successful\n";
+}
+
+void withdraw() {
+    double amount;
+    cout << "Enter Amount to Withdraw: ";
+    cin >> amount;
+
+    if (amount > balance)
+        cout << "Insufficient Balance\n";
+    else {
+        balance -= amount;
+        saveBalance();
+        cout << "Withdrawal Successful\n";
+    }
+}
+
+void checkBalance() {
+    cout << "Current Balance: " << balance << endl;
+}
+
+void menu() {
+    cout << "\n===== BANKING SYSTEM =====\n";
+    cout << "1. Deposit\n";
+    cout << "2. Withdraw\n";
+    cout << "3. Check Balance\n";
+    cout << "4. Exit\n";
+    cout << "Enter Choice: ";
+}
+
+int main() {
+    int choice;
+
+    loadBalance();
+
+    do {
+        menu();
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                deposit();
+                break;
+
+            case 2:
+                withdraw();
+                break;
+
+            case 3:
+                checkBalance();
+                break;
+
+            case 4:
+                cout << "Thank You\n";
+                break;
+
+            default:
+                cout << "Invalid Choice\n";
+        }
+
+    } while (choice != 4);
+
+    return 0;
+}
