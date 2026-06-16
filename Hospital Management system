@@ -1,0 +1,108 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+void addPatient() {
+    ofstream file("hospital.txt", ios::app);
+
+    int id, age;
+    string name, disease;
+
+    cout << "Enter Patient ID: ";
+    cin >> id;
+
+    cout << "Enter Patient Name: ";
+    cin >> name;
+
+    cout << "Enter Age: ";
+    cin >> age;
+
+    cout << "Enter Disease: ";
+    cin >> disease;
+
+    file << id << " " << name << " " << age << " " << disease << endl;
+    file.close();
+
+    cout << "Patient Added Successfully\n";
+}
+
+void displayPatients() {
+    ifstream file("hospital.txt");
+
+    int id, age;
+    string name, disease;
+
+    cout << "\nID\tName\tAge\tDisease\n";
+
+    while (file >> id >> name >> age >> disease) {
+        cout << id << "\t" << name << "\t" << age << "\t" << disease << endl;
+    }
+
+    file.close();
+}
+
+void searchPatient() {
+    ifstream file("hospital.txt");
+
+    int id, age, searchId;
+    string name, disease;
+    bool found = false;
+
+    cout << "Enter Patient ID: ";
+    cin >> searchId;
+
+    while (file >> id >> name >> age >> disease) {
+        if (id == searchId) {
+            cout << "\nPatient Found\n";
+            cout << "ID: " << id << endl;
+            cout << "Name: " << name << endl;
+            cout << "Age: " << age << endl;
+            cout << "Disease: " << disease << endl;
+            found = true;
+            break;
+        }
+    }
+
+    if (!found)
+        cout << "Patient Not Found\n";
+
+    file.close();
+}
+
+int main() {
+    int choice;
+
+    do {
+        cout << "\n===== HOSPITAL MANAGEMENT SYSTEM =====";
+        cout << "\n1. Add Patient";
+        cout << "\n2. Display Patients";
+        cout << "\n3. Search Patient";
+        cout << "\n4. Exit";
+        cout << "\nEnter Choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                addPatient();
+                break;
+
+            case 2:
+                displayPatients();
+                break;
+
+            case 3:
+                searchPatient();
+                break;
+
+            case 4:
+                cout << "Thank You";
+                break;
+
+            default:
+                cout << "Invalid Choice";
+        }
+
+    } while (choice != 4);
+
+    return 0;
+}
