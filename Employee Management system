@@ -1,0 +1,108 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+void addEmployee() {
+    ofstream file("employee.txt", ios::app);
+
+    int id;
+    string name, department;
+    float salary;
+
+    cout << "Enter Employee ID: ";
+    cin >> id;
+
+    cout << "Enter Employee Name: ";
+    cin >> name;
+
+    cout << "Enter Department: ";
+    cin >> department;
+
+    cout << "Enter Salary: ";
+    cin >> salary;
+
+    file << id << " " << name << " " << department << " " << salary << endl;
+
+    file.close();
+
+    cout << "Employee Added Successfully\n";
+}
+
+void displayEmployees() {
+    ifstream file("employee.txt");
+
+    int id;
+    string name, department;
+    float salary;
+
+    cout << "\nID\tName\tDepartment\tSalary\n";
+
+    while (file >> id >> name >> department >> salary) {
+        cout << id << "\t" << name << "\t" << department << "\t\t" << salary << endl;
+    }
+
+    file.close();
+}
+
+void searchEmployee() {
+    ifstream file("employee.txt");
+
+    int id, searchId;
+    string name, department;
+    float salary;
+    bool found = false;
+
+    cout << "Enter Employee ID: ";
+    cin >> searchId;
+
+    while (file >> id >> name >> department >> salary) {
+        if (id == searchId) {
+            cout << "\nEmployee Found\n";
+            cout << "ID: " << id << endl;
+            cout << "Name: " << name << endl;
+            cout << "Department: " << department << endl;
+            cout << "Salary: " << salary << endl;
+            found = true;
+            break;
+        }
+    }
+
+    if (!found)
+        cout << "Employee Not Found\n";
+
+    file.close();
+}
+
+int main() {
+    int choice;
+
+    do {
+        cout << "\n===== EMPLOYEE MANAGEMENT SYSTEM =====";
+        cout << "\n1. Add Employee";
+        cout << "\n2. Display Employees";
+        cout << "\n3. Search Employee";
+        cout << "\n4. Exit";
+        cout << "\nEnter Choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                addEmployee();
+                break;
+            case 2:
+                displayEmployees();
+                break;
+            case 3:
+                searchEmployee();
+                break;
+            case 4:
+                cout << "Thank You";
+                break;
+            default:
+                cout << "Invalid Choice";
+        }
+
+    } while (choice != 4);
+
+    return 0;
+}
