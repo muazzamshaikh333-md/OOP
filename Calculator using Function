@@ -1,0 +1,66 @@
+#include <iostream>
+using namespace std;
+
+float add(float a, float b) {
+    return a + b;
+}
+
+float subtract(float a, float b) {
+    return a - b;
+}
+
+float multiply(float a, float b) {
+    return a * b;
+}
+
+float divide(float a, float b) {
+    if (b == 0) {
+        cout << "Division by zero is not possible\n";
+        return 0;
+    }
+    return a / b;
+}
+
+int main() {
+    float a, b;
+    int choice;
+
+    do {
+        cout << "\n===== CALCULATOR =====\n";
+        cout << "1. Addition\n";
+        cout << "2. Subtraction\n";
+        cout << "3. Multiplication\n";
+        cout << "4. Division\n";
+        cout << "5. Exit\n";
+        cout << "Enter Choice: ";
+        cin >> choice;
+
+        if (choice >= 1 && choice <= 4) {
+            cout << "Enter Two Numbers: ";
+            cin >> a >> b;
+        }
+
+        switch (choice) {
+            case 1:
+                cout << "Result = " << add(a, b) << endl;
+                break;
+            case 2:
+                cout << "Result = " << subtract(a, b) << endl;
+                break;
+            case 3:
+                cout << "Result = " << multiply(a, b) << endl;
+                break;
+            case 4:
+                cout << "Result = " << divide(a, b) << endl;
+                break;
+            case 5:
+                cout << "Thank You";
+                break;
+            default:
+                cout << "Invalid Choice";
+        }
+
+    } while (choice != 5);
+
+    return 0;
+}
