@@ -1,0 +1,63 @@
+#include <iostream>
+using namespace std;
+
+int score = 0;
+
+void question1() {
+    int ans;
+    cout << "\nQ1. What is the capital of India?\n";
+    cout << "1. Mumbai\n2. Delhi\n3. Kolkata\n4. Chennai\n";
+    cout << "Enter Answer: ";
+    cin >> ans;
+
+    if (ans == 2)
+        score++;
+}
+
+void question2() {
+    int ans;
+    cout << "\nQ2. Which language is used for Object Oriented Programming?\n";
+    cout << "1. C\n2. HTML\n3. C++\n4. SQL\n";
+    cout << "Enter Answer: ";
+    cin >> ans;
+
+    if (ans == 3)
+        score++;
+}
+
+void question3() {
+    int ans;
+    cout << "\nQ3. Which planet is known as the Red Planet?\n";
+    cout << "1. Mars\n2. Venus\n3. Earth\n4. Jupiter\n";
+    cout << "Enter Answer: ";
+    cin >> ans;
+
+    if (ans == 1)
+        score++;
+}
+
+void result() {
+    cout << "\n===== RESULT =====\n";
+    cout << "Your Score: " << score << "/3\n";
+
+    if (score == 3)
+        cout << "Excellent!";
+    else if (score == 2)
+        cout << "Very Good!";
+    else if (score == 1)
+        cout << "Good!";
+    else
+        cout << "Better Luck Next Time!";
+}
+
+int main() {
+    cout << "===== QUIZ COMPETITION =====\n";
+
+    question1();
+    question2();
+    question3();
+
+    result();
+
+    return 0;
+}
