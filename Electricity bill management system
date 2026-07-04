@@ -1,0 +1,37 @@
+#include <iostream>
+using namespace std;
+
+float calculateBill(int units) {
+    if (units <= 100)
+        return units * 1.5;
+    else if (units <= 200)
+        return 100 * 1.5 + (units - 100) * 2.5;
+    else if (units <= 300)
+        return 100 * 1.5 + 100 * 2.5 + (units - 200) * 4;
+    else
+        return 100 * 1.5 + 100 * 2.5 + 100 * 4 + (units - 300) * 6;
+}
+
+int main() {
+    int id, units;
+    string name;
+
+    cout << "Enter Customer ID: ";
+    cin >> id;
+
+    cout << "Enter Customer Name: ";
+    cin >> name;
+
+    cout << "Enter Units Consumed: ";
+    cin >> units;
+
+    float bill = calculateBill(units);
+
+    cout << "\n===== ELECTRICITY BILL =====\n";
+    cout << "Customer ID : " << id << endl;
+    cout << "Customer Name : " << name << endl;
+    cout << "Units Consumed : " << units << endl;
+    cout << "Total Bill : Rs. " << bill << endl;
+
+    return 0;
+}
