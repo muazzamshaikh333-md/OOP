@@ -1,0 +1,90 @@
+#include <iostream>
+using namespace std;
+
+int availableSeats = 50;
+
+void showMovies() {
+    cout << "\n===== MOVIE LIST =====\n";
+    cout << "1. Avengers\n";
+    cout << "2. Spider-Man\n";
+    cout << "3. Pushpa 2\n";
+    cout << "4. Kalki 2898 AD\n";
+}
+
+void bookTicket() {
+    int movie, tickets;
+
+    showMovies();
+
+    cout << "Select Movie: ";
+    cin >> movie;
+
+    cout << "Enter Number of Tickets: ";
+    cin >> tickets;
+
+    if (tickets <= availableSeats) {
+        availableSeats -= tickets;
+        cout << "\nBooking Successful\n";
+        cout << "Movie: ";
+
+        switch(movie) {
+            case 1:
+                cout << "Avengers";
+                break;
+            case 2:
+                cout << "Spider-Man";
+                break;
+            case 3:
+                cout << "Pushpa 2";
+                break;
+            case 4:
+                cout << "Kalki 2898 AD";
+                break;
+            default:
+                cout << "Invalid Movie";
+        }
+
+        cout << "\nTickets Booked: " << tickets;
+        cout << "\nTotal Amount: Rs. " << tickets * 200 << endl;
+    } else {
+        cout << "Seats Not Available\n";
+    }
+}
+
+void checkSeats() {
+    cout << "Available Seats: " << availableSeats << endl;
+}
+
+int main() {
+    int choice;
+
+    do {
+        cout << "\n===== MOVIE TICKET BOOKING SYSTEM =====";
+        cout << "\n1. Show Movies";
+        cout << "\n2. Book Ticket";
+        cout << "\n3. Check Available Seats";
+        cout << "\n4. Exit";
+        cout << "\nEnter Choice: ";
+        cin >> choice;
+
+        switch(choice) {
+            case 1:
+                showMovies();
+                break;
+            case 2:
+                bookTicket();
+                break;
+            case 3:
+                checkSeats();
+                break;
+            case 4:
+                cout << "Thank You";
+                break;
+            default:
+                cout << "Invalid Choice";
+        }
+
+    } while(choice != 4);
+
+    return 0;
+}
