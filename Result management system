@@ -1,0 +1,42 @@
+#include <iostream>
+using namespace std;
+
+void calculateResult(int m1, int m2, int m3, int m4, int m5) {
+    int total = m1 + m2 + m3 + m4 + m5;
+    float percentage = total / 5.0;
+
+    cout << "\n===== RESULT =====\n";
+    cout << "Total Marks : " << total << "/500" << endl;
+    cout << "Percentage : " << percentage << "%" << endl;
+
+    if (percentage >= 90)
+        cout << "Grade : A+" << endl;
+    else if (percentage >= 80)
+        cout << "Grade : A" << endl;
+    else if (percentage >= 70)
+        cout << "Grade : B" << endl;
+    else if (percentage >= 60)
+        cout << "Grade : C" << endl;
+    else if (percentage >= 40)
+        cout << "Grade : D" << endl;
+    else
+        cout << "Grade : F (Fail)" << endl;
+}
+
+int main() {
+    string name;
+    int roll, m1, m2, m3, m4, m5;
+
+    cout << "Enter Student Name: ";
+    cin >> name;
+
+    cout << "Enter Roll Number: ";
+    cin >> roll;
+
+    cout << "Enter Marks of 5 Subjects:\n";
+    cin >> m1 >> m2 >> m3 >> m4 >> m5;
+
+    calculateResult(m1, m2, m3, m4, m5);
+
+    return 0;
+}
