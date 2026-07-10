@@ -1,0 +1,45 @@
+#include <iostream>
+using namespace std;
+
+float calculateSalary(float basic, float hra, float da, float pf) {
+    return basic + hra + da - pf;
+}
+
+int main() {
+    int empId;
+    string name;
+    float basic, hra, da, pf, salary;
+
+    cout << "===== PAYROLL MANAGEMENT SYSTEM =====\n";
+
+    cout << "Enter Employee ID: ";
+    cin >> empId;
+
+    cout << "Enter Employee Name: ";
+    cin >> name;
+
+    cout << "Enter Basic Salary: ";
+    cin >> basic;
+
+    cout << "Enter HRA: ";
+    cin >> hra;
+
+    cout << "Enter DA: ";
+    cin >> da;
+
+    cout << "Enter PF Deduction: ";
+    cin >> pf;
+
+    salary = calculateSalary(basic, hra, da, pf);
+
+    cout << "\n===== SALARY SLIP =====\n";
+    cout << "Employee ID : " << empId << endl;
+    cout << "Employee Name : " << name << endl;
+    cout << "Basic Salary : " << basic << endl;
+    cout << "HRA : " << hra << endl;
+    cout << "DA : " << da << endl;
+    cout << "PF : " << pf << endl;
+    cout << "Net Salary : " << salary << endl;
+
+    return 0;
+}
