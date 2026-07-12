@@ -1,0 +1,92 @@
+#include <iostream>
+using namespace std;
+
+int availableSeats = 60;
+
+void showFlights() {
+    cout << "\n===== AVAILABLE FLIGHTS =====\n";
+    cout << "1. Pune to Delhi\n";
+    cout << "2. Mumbai to Bangalore\n";
+    cout << "3. Hyderabad to Chennai\n";
+    cout << "4. Nagpur to Kolkata\n";
+}
+
+void bookTicket() {
+    int flight, seats;
+
+    showFlights();
+
+    cout << "Select Flight: ";
+    cin >> flight;
+
+    cout << "Enter Number of Seats: ";
+    cin >> seats;
+
+    if (seats <= availableSeats) {
+        availableSeats -= seats;
+
+        cout << "\n===== BOOKING CONFIRMED =====\n";
+
+        switch (flight) {
+            case 1:
+                cout << "Route: Pune to Delhi\n";
+                break;
+            case 2:
+                cout << "Route: Mumbai to Bangalore\n";
+                break;
+            case 3:
+                cout << "Route: Hyderabad to Chennai\n";
+                break;
+            case 4:
+                cout << "Route: Nagpur to Kolkata\n";
+                break;
+            default:
+                cout << "Invalid Flight\n";
+                return;
+        }
+
+        cout << "Seats Booked: " << seats << endl;
+        cout << "Ticket Price: Rs. " << seats * 4500 << endl;
+        cout << "Remaining Seats: " << availableSeats << endl;
+    } else {
+        cout << "Seats Not Available\n";
+    }
+}
+
+void checkSeats() {
+    cout << "Available Seats: " << availableSeats << endl;
+}
+
+int main() {
+    int choice;
+
+    do {
+        cout << "\n===== FLIGHT RESERVATION SYSTEM =====\n";
+        cout << "1. Show Flights\n";
+        cout << "2. Book Ticket\n";
+        cout << "3. Check Available Seats\n";
+        cout << "4. Exit\n";
+        cout << "Enter Choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                showFlights();
+                break;
+            case 2:
+                bookTicket();
+                break;
+            case 3:
+                checkSeats();
+                break;
+            case 4:
+                cout << "Thank You\n";
+                break;
+            default:
+                cout << "Invalid Choice\n";
+        }
+
+    } while (choice != 4);
+
+    return 0;
+}
