@@ -1,0 +1,82 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+struct Edge {
+    int u, v;
+    long long w;
+};
+
+class DSU {
+    vector<int> parent, rank;
+
+public:
+    DSU(int n) {
+        parent.resize(n + 1);
+        rank.resize(n + 1, 0);
+
+        for (int i = 1; i <= n; i++)
+            parent[i] = i;
+    }
+
+    int find(int x) {
+        if (parent[x] == x)
+            return x;
+
+        return parent[x] = find(parent[x]);
+    }
+
+    bool unite(int a, int b) {
+        a = find(a);
+        b = find(b);
+
+        if (a == b)
+            return false;
+
+        if (rank[a] < rank[b])
+            swap(a, b);
+
+        parent[b] = a;
+
+        if (rank[a] == rank[b])
+            rank[a]++;
+
+        return true;
+    }
+};
+
+int main() {
+    int N, M;
+
+    cin >> N >> M;
+
+    vector<Edge> edges(M);
+
+    for (int i = 0; i < M; i++) {
+        cin >> edges[i].u >> edges[i].v >> edges[i].w;
+    }
+
+    sort(edges.begin(), edges.end(), [](Edge a, Edge b) {
+        if (a.w != b.w)
+            return a.w < b.w;
+
+        if ((a.w % 2) != (b.w % 2))
+            return (a.w % 2) > (b.w % 2);
+
+        return false;
+    });
+
+    DSU dsu(N);
+
+    long long totalCost = 0;
+    int evenEdges = 0;
+    int selectedEdges = 0;
+
+    for (auto edge : edges) {
+        if (dsu.unite(edge.u, edge.v)) {
+            totalCost += edge.w;
+            selectedEdges++;
+
+            if (edge.w % 2 == 0)
+                evenEdges
