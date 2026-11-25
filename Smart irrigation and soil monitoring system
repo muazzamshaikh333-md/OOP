@@ -1,48 +1,95 @@
-const int trigPin = 10;
-const int echoPin = 11;
-const int relayPin = 7;
 
-long duration;
-int distanceCm;
+#include <DHT.h>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+#define SOIL_PIN A0
+#define DHT_PIN 2
+#define DHT_TYPE DHT11
+#define RELAY_PIN 7
+
+DHT dht(DHT_PIN, DHT_TYPE);
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+// Adjust after checking soil sensor readings
+int dryThreshold = 650;
+int wetThreshold = 500;
+
+// Most relay modules are active LOW
+const int RELAY_ON = LOW;
+const int RELAY_OFF = HIGH;
+
+bool pumpState = false;
 
 void setup() {
   Serial.begin(9600);
 
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
-  pinMode(relayPin, OUTPUT);
+  pinMode(RELAY_PIN, OUTPUT);
+  digitalWrite(RELAY_PIN, RELAY_OFF);
 
-  digitalWrite(relayPin, HIGH);
+  dht.begin();
+
+  lcd.init();
+  lcd.backlight();
+
+  lcd.setCursor(0, 0);
+  lcd.print("Smart Irrigation");
+  lcd.setCursor(0, 1);
+  lcd.print("System Starting");
+  delay(2000);
 }
 
 void loop() {
-  digitalWrite(trigPin, LOW);
-  delayMicroseconds(2);
+  int soilValue = analogRead(SOIL_PIN);
 
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
+  float temperature = dht.readTemperature();
+  float humidity = dht.readHumidity();
 
-  digitalWrite(trigPin, LOW);
-
-  duration = pulseIn(echoPin, HIGH, 30000);
-
-  if (duration == 0) {
-    Serial.println("No Echo");
-    delay(500);
-    return;
+  // Pump control
+  if (soilValue >= dryThreshold) {
+    pumpState = true;
   }
 
-  distanceCm = duration * 0.034 / 2;
+  if (soilValue <= wetThreshold) {
+    pumpState = false;
+  }
 
-  Serial.print("Distance: ");
-  Serial.print(distanceCm);
-  Serial.println(" cm");
+  digitalWrite(
+    RELAY_PIN,
+    pumpState ? RELAY_ON : RELAY_OFF
+  );
 
-  if (distanceCm < 20) {
-    digitalWrite(relayPin, LOW);
+  // Serial Monitor
+  Serial.print("Soil: ");
+  Serial.print(soilValue);
+
+  Serial.print(" | Temp: ");
+  Serial.print(temperature);
+
+  Serial.print(" C | Humidity: ");
+  Serial.print(humidity);
+
+  Serial.print(" % | Pump: ");
+  Serial.println(pumpState ? "ON" : "OFF");
+
+  // LCD Display
+  lcd.clear();
+
+  lcd.setCursor(0, 0);
+  lcd.print("Soil:");
+  lcd.print(soilValue);
+
+  lcd.setCursor(0, 1);
+
+  if (isnan(temperature) || isnan(humidity)) {
+    lcd.print("DHT11 Error");
   } else {
-    digitalWrite(relayPin, HIGH);
+    lcd.print("T:");
+    lcd.print(temperature, 0);
+    lcd.print("C H:");
+    lcd.print(humidity, 0);
+    lcd.print("%");
   }
 
-  delay(500);
+  delay(2000);
 }
